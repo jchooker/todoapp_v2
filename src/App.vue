@@ -1,26 +1,27 @@
 <script>
-import {ref, onMounted, computed, watch} from 'vue';
+import {ref} from 'vue';
 import GetAllToDos from './components/GetAllToDos.vue';
 import AddToDoModal from './components/AddToDoModal.vue';
 import EditToDoModal from './components/EditToDoModal.vue';
+import DelToDoModal from './components/DelToDoModal.vue';
 import {useEditModalStore} from './stores/editmodalstore';
+import {useDelModalStore} from './stores/delmodalstore';
+import { useAddModalStore } from './stores/addmodalstore';
 
 export default {
   name: 'Home',
   components: {
-    GetAllToDos, AddToDoModal, EditToDoModal
+    GetAllToDos, AddToDoModal, EditToDoModal, DelToDoModal
   },
     setup() {
-        const editModalStore = useEditModalStore()
+        const editModalStore = useEditModalStore();
+        const delModalStore = useDelModalStore();
+        const addModalStore = useAddModalStore();
 
         const addModalActive = ref(false);
 
-        const toggleAddModal = () => {
-          addModalActive.value = !addModalActive.value;
-        }
-
         return {
-            addModalActive, editModalStore, toggleAddModal
+            addModalActive, editModalStore, delModalStore, addModalStore
         }
     }
 }
@@ -29,13 +30,14 @@ export default {
 
 <template>
   <main>
-    <AddToDoModal @close="toggleAddModal" :addModalActive = "addModalActive"></AddToDoModal>
+    <AddToDoModal v-if="addModalStore.addModalActive"></AddToDoModal>
     <EditToDoModal v-if="editModalStore.editModalActive"></EditToDoModal>
+    <DelToDoModal v-if="delModalStore.delModalActive"></DelToDoModal>
     <div id="pseudo-header" class="d-flex justify-content-start align-items-start">
       <h1>ToDo App</h1>
-      <button @click="toggleAddModal" class="btn btn-primary mt-2 ms-5 shadow-sm border border-light border-2" type="button">Add new To Do to list</button>
+      <button @click="addModalStore.toggleAddModalOn" class="btn btn-primary mt-2 ms-5 shadow-sm border border-light border-2" type="button">Add new To Do to list</button>
     </div>
-    <GetAllToDos></GetAllToDos>
+    <GetAllToDos :key="allTodos"></GetAllToDos>
   </main>
 </template>
 

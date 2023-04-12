@@ -5,13 +5,14 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import { faWindowClose, faTimesCircle } from '@fortawesome/free-solid-svg-icons'
+import { faWindowClose, faTimesCircle, faPencilSquare } from '@fortawesome/free-solid-svg-icons'
 import {createPinia} from 'pinia'
 
 const app = createApp(App);
 
 library.add(faWindowClose);
 library.add(faTimesCircle);
+library.add(faPencilSquare);
 
 app
 .component('font-awesome-icon', FontAwesomeIcon)

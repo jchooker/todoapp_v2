@@ -3,12 +3,13 @@ import {defineStore} from 'pinia';
 export const useEditModalStore = defineStore('editModal', {
     id: 'editModalStore',
     state: () => ({
-        storeToDos: [],
         editModalActive: false,
+        idOfEdit: null
     }),
     actions: {
-        toggleEditModal() {
-            this.editModalActive = !this.editModalActive;
-        }
+        toggleEditModalOn(newId) {
+            this.editModalActive = true;
+            this.idOfEdit = newId;
+        },
     }
 })
