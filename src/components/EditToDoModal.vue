@@ -68,7 +68,16 @@ export default {
     },
     methods: {
         async editToDo(id) {
-            await axios.put(this.apiStore.apiUrl + '/' + id);
+            await axios.put(this.apiStore.apiUrl + '/' + id); <!---04/12/23 update: I was missing some of the put request arguments--->
+            <!---Corrected request would be as shown in comment below, although this is currently causing a 400 error for me--->
+            <!---await axios.put(this.apiStore.apiUrl + '/' + id, {
+                title: this.title, deadlineDateTime: this.deadlineDateTime, 
+                isComplete: this.isComplete, note: this.note
+            }, 
+            {
+                headers: {
+                'Content-Type': 'application/json'
+            }});---->
             this.editModalStore.$reset;
             //this.refreshStore.toggleRefreshOn();
             this.watchForStore.watchEventToggleOn();
