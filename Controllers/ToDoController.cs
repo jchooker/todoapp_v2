@@ -97,6 +97,8 @@ namespace ToDoApp.Controllers //**NEED TO FIX UP ALL OF THE ONES THAT ARE SWITCH
         {
             if (toDo == null || id != toDo.Id)
             {
+                if (toDo == null) Console.Write("toDo is null");
+                else if (id != toDo.Id) Console.Write("Id mismatch");
                 return BadRequest();
             }
 
